@@ -10,7 +10,7 @@ listaNo.forEach(function (item,index){
   cartaArr[index] = item;
 });
 
-
+// EMBARALHA AS CARTAS
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -25,11 +25,22 @@ function shuffle(array) {
   return array;
 }
 
+// ATRIBUI OS ICONES AS CARTAS E OS EVENTOS DE CLICK
 function atribuiClassesCartas () {
   shuffle(arrayClassIcon);
   for(let cont = 0; cont <= cartaArr.length ; cont ++) {
     cartaArr[cont].querySelector('i').classList.add('fa',arrayClassIcon[cont]);
+    cartaArr[cont].addEventListener('click',function () {
+      cartaArr[cont].classList.add('aberta','visualizar');
+    });
+  }
+}
+
+function teste () {
+  for (let cont = 0 ; cont <= cartaArr.length ; cont ++) {
+
   }
 }
 
 atribuiClassesCartas();
+teste();
