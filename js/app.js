@@ -1,16 +1,14 @@
-const listaNo = document.querySelectorAll('.carta');
-const cartaArr= [];
+/* ARMAZENA O NÓ COM A CLASSE TABULEIRO QUE SERÁ ÚTIL PARA EVENTO DE CLICK */
+const tabuleiro = document.querySelector('.tabuleiro');
+/*CRIA UM ARRAY DE NÓS CONTENDO CADA CARTA*/
+const cartaArr = document.querySelectorAll('.carta');
+/*ARRAY QUE ARMAZENA AS CLASSES QUE SERÃO OS ÍCONES DE CADA CARTA*/
 const arrayClassIcon = [
   'fa-diamond' , 'fa-paper-plane-o' , 'fa-anchor' , 'fa-bolt' ,
   'fa-cube' , 'fa-leaf' , 'fa-diamond' , 'fa-paper-plane-o' ,
   'fa-anchor' , 'fa-bolt' , 'fa-cube' , 'fa-leaf'
 ];
-
-listaNo.forEach(function (item,index){
-  cartaArr[index] = item;
-});
-
-// EMBARALHA AS CARTAS
+/* EMBARALHA AS CARTAS */
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -21,26 +19,23 @@ function shuffle(array) {
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
   }
-
   return array;
 }
 
-// ATRIBUI OS ICONES AS CARTAS E OS EVENTOS DE CLICK
-function atribuiClassesCartas () {
+/* FUNÇÃO RESPONSÁVEL POR ATRIBUIR OS ÍCONES RANDOMIZADOS AS CARTAS */
+function iniciaTabuleiro () {
   shuffle(arrayClassIcon);
-  for(let cont = 0; cont <= cartaArr.length ; cont ++) {
-    cartaArr[cont].querySelector('i').classList.add('fa',arrayClassIcon[cont]);
-    cartaArr[cont].addEventListener('click',function () {
-      cartaArr[cont].classList.add('aberta','visualizar');
-    });
-  }
-}
-
-function teste () {
   for (let cont = 0 ; cont <= cartaArr.length ; cont ++) {
-
+    cartaArr[cont].querySelector('i').classList.add('fa', arrayClassIcon[cont]);
   }
 }
+iniciaTabuleiro();
 
-atribuiClassesCartas();
-teste();
+/* ADICONANDO EVENTO DE CLICK */
+// for (let cont = 0 ; cartaArr.length ; cont ++) {
+// 	cartaArr[cont].addEventListener('click', function (evento){
+// 		if (evento.target.nodeName === 'LI') {
+// 			console.log(evento.target.nodeName + ' foi clicado');
+// 		}
+// });
+// }
