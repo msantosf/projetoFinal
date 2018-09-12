@@ -22,6 +22,15 @@ function shuffle(array) {
   return array;
 }
 
+/* ADICIONANDO EVENTO DE CLICK NA CARTA */
+tabuleiro.addEventListener('click', function (evento){
+  if (evento.target.nodeName === 'LI') {
+    //Testando funcionalidade
+    console.log(evento.target.nodeName + ' foi clicado');
+  }
+  console.log('teste');
+});
+
 /* FUNÇÃO RESPONSÁVEL POR ATRIBUIR OS ÍCONES RANDOMIZADOS AS CARTAS */
 function iniciaTabuleiro () {
   shuffle(arrayClassIcon);
@@ -30,12 +39,3 @@ function iniciaTabuleiro () {
   }
 }
 iniciaTabuleiro();
-
-/* ADICONANDO EVENTO DE CLICK */
-// for (let cont = 0 ; cartaArr.length ; cont ++) {
-// 	cartaArr[cont].addEventListener('click', function (evento){
-// 		if (evento.target.nodeName === 'LI') {
-// 			console.log(evento.target.nodeName + ' foi clicado');
-// 		}
-// });
-// }
