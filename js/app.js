@@ -42,12 +42,24 @@ tabuleiro.addEventListener('click', function (evento){
 
     //TESTE PARA ADICIONAR APENAS 2 VALORES AO ARRAY PARA COMPARAÇÃO
     if (cartaAberta.length < 2) {
-        cartaAberta.push(evento.target.querySelector('i'));
+      cartaAberta.push(evento.target.querySelector('i'));
     }
 
+    if (cartaAberta.length === 2) {
+      document.body.style.pointerEvents = "none";
+      comparacao();
+    }
   }
-
 });
+
+function comparacao () {
+  if (cartaAberta[0].className === cartaAberta[1].className) {
+    console.log('Cartas Iguais');
+  }
+  console.log(cartaAberta[0].className);
+  console.log(cartaAberta[1].className);
+  // console.log(cartaAberta.length + ' cartas abertas');
+}
 
 /* FUNÇÃO RESPONSÁVEL POR ATRIBUIR OS ÍCONES RANDOMIZADOS AS CARTAS */
 function iniciaTabuleiro () {
