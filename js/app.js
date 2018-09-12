@@ -27,8 +27,14 @@ tabuleiro.addEventListener('click', function (evento){
   if (evento.target.nodeName === 'LI') {
     //Testando funcionalidade
     console.log(evento.target.nodeName + ' foi clicado');
+
+    atribuiClassesCartas();
   }
-  console.log('teste');
+
+  function atribuiClassesCartas () {
+    evento.target.classList.add('aberta', 'visualizar');
+  }
+
 });
 
 /* FUNÇÃO RESPONSÁVEL POR ATRIBUIR OS ÍCONES RANDOMIZADOS AS CARTAS */
