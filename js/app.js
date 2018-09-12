@@ -8,6 +8,9 @@ const arrayClassIcon = [
   'fa-cube' , 'fa-leaf' , 'fa-diamond' , 'fa-paper-plane-o' ,
   'fa-anchor' , 'fa-bolt' , 'fa-cube' , 'fa-leaf'
 ];
+/* ARRAY PARA ARMAZENAR VALOR DA CARTA SELECIONADA*/
+let cartaAberta = [];
+
 /* EMBARALHA AS CARTAS */
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
@@ -27,12 +30,20 @@ tabuleiro.addEventListener('click', function (evento){
   if (evento.target.nodeName === 'LI') {
     //Testando funcionalidade
     console.log(evento.target.nodeName + ' foi clicado');
-
+    /* SE O CLICK FOR EM UMA CARTA,
+    CHAMA A FUNÇÃO QUE ATRIBUI AS CLASSES CSS 'aberta'
+    'visualizar' TORNANDO VISÍVEL ASSIM A CARTA*/
     atribuiClassesCartas();
   }
 
   function atribuiClassesCartas () {
     evento.target.classList.add('aberta', 'visualizar');
+    cartaAberta.push(evento.target.querySelector('i'));
+    //Teste de funcionalidade
+    if (cartaAberta.length < 3) {
+        console.log(cartaAberta);
+    }
+
   }
 
 });
