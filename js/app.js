@@ -37,11 +37,12 @@ tabuleiro.addEventListener('click', function (evento){
   }
 
   function atribuiClassesCartas () {
+    //ADICIONA A CARTA SELECIONADA AS CLASSES PARA MOSTRAR A CARTA
     evento.target.classList.add('aberta', 'visualizar');
-    cartaAberta.push(evento.target.querySelector('i'));
-    //Teste de funcionalidade
-    if (cartaAberta.length < 3) {
-        console.log(cartaAberta);
+
+    //TESTE PARA ADICIONAR APENAS 2 VALORES AO ARRAY PARA COMPARAÇÃO
+    if (cartaAberta.length < 2) {
+        cartaAberta.push(evento.target.querySelector('i'));
     }
 
   }
