@@ -10,6 +10,10 @@ const arrayClassIcon = [
 ];
 /* ARRAY PARA ARMAZENAR VALOR DA CARTA SELECIONADA*/
 let cartaAberta = [];
+//VARIÁVEL QUE ARMAZENA A PONTUÇÃO DO JOGO
+let pontuacao = 0;
+//VARIÁVEL QUE ARMAZENA A PONTUAÇÃO MÁXIMA DO JOGO
+let pontMax = cartaArr.length / 2;
 
 /* EMBARALHA AS CARTAS */
 function shuffle(array) {
@@ -42,23 +46,42 @@ tabuleiro.addEventListener('click', function (evento){
 
     //TESTE PARA ADICIONAR APENAS 2 VALORES AO ARRAY PARA COMPARAÇÃO
     if (cartaAberta.length < 2) {
+      //CASO O TAMANHO DO ARRAY SEJA MENOR QUE 2, ADICIONA O ICONE DA CARTA AO ARRAY
       cartaAberta.push(evento.target.querySelector('i'));
     }
 
+    //TESTE PARA DESABILITAR A ABERTURA DE NOVAS CARTAS CASO JÁ EXISTAM 2 ABERTAS
     if (cartaAberta.length === 2) {
+      //DESABILTA CLICK QUE PODERIA ABRIR UMA NOVA CARTA ENQUANTO A COMPARAÇÃO É FEITA
       document.body.style.pointerEvents = "none";
+      // CHAMA FUNÇÃO QUE FARÁ A COMPARAÇÃO DAS DUAS CARTAS NO ARRAY
       comparacao();
     }
   }
 });
 
+/* FUNÇÃO EFETUA OS TESTES NECESSÁRIOS SE CARTAS SÃO IGUAIS OU NÃO*/
 function comparacao () {
+  //TESTA IGUALDADE DAS CARTAS
   if (cartaAberta[0].className === cartaAberta[1].className) {
+    // CARTAS IGUAIS, LOGO É ATRIBUÍDA A CLASSE CSS MATH QUE VALIDA VISUALMENTE O ACERTO
+    cartaAberta[0].parentElement.classList.add('match');
+    cartaAberta[1].parentElement.classList.add('match');
+
+    //CARTAS IGUAIS, O ARRAY É REINICIADO PARA RECEBER NOVAS CARTAS
+    cartaAberta = [];
+
+    //HABILITA O MOUSE NOVAMENTE PARA CONTINUAR O JOGO
+    document.body.style.pointerEvents = "auto";
+
+    // SE CARTAS IGUAIS, ACRESCENTAR UM PONTO A VARIÁVEL
+    pontuacao ++;
+    // TESTE SE PONTUAÇÃO CHEGAR AO MÁXIMO PERMITIDO, FINALIZA O JOGO
+    if (pontuacao === pontMax){
+      console.log('vencedor!!');
+    }
     console.log('Cartas Iguais');
   }
-  console.log(cartaAberta[0].className);
-  console.log(cartaAberta[1].className);
-  // console.log(cartaAberta.length + ' cartas abertas');
 }
 
 /* FUNÇÃO RESPONSÁVEL POR ATRIBUIR OS ÍCONES RANDOMIZADOS AS CARTAS */
