@@ -14,6 +14,7 @@ let cartaAberta = [];
 let pontuacao = 0;
 //VARIÁVEL QUE ARMAZENA A PONTUAÇÃO MÁXIMA DO JOGO
 let pontMax = cartaArr.length / 2;
+let jogadas = 0;
 
 /* EMBARALHA AS CARTAS */
 function shuffle(array) {
@@ -32,8 +33,6 @@ function shuffle(array) {
 /* ADICIONANDO EVENTO DE CLICK NA CARTA */
 tabuleiro.addEventListener('click', function (evento){
   if (evento.target.nodeName === 'LI') {
-    //Testando funcionalidade
-    console.log(evento.target.nodeName + ' foi clicado');
     /* SE O CLICK FOR EM UMA CARTA,
     CHAMA A FUNÇÃO QUE ATRIBUI AS CLASSES CSS 'aberta'
     'visualizar' TORNANDO VISÍVEL ASSIM A CARTA*/
@@ -74,14 +73,26 @@ function comparacao () {
     //HABILITA O MOUSE NOVAMENTE PARA CONTINUAR O JOGO
     document.body.style.pointerEvents = "auto";
 
-    // SE CARTAS IGUAIS, ACRESCENTAR UM PONTO A VARIÁVEL
+    // SE CARTAS IGUAIS, INCREMENTA PONTUAÇÃO E JOGADAS
     pontuacao ++;
+    jogadas ++
     // TESTE SE PONTUAÇÃO CHEGAR AO MÁXIMO PERMITIDO, FINALIZA O JOGO
     if (pontuacao === pontMax){
       console.log('vencedor!!');
     }
     console.log('Cartas Iguais');
+  } else if (cartaAberta[0].className !== cartaAberta[1].className) {
+    console.log('Cartas diferentes!');
+    setTimeout(removeClasseCarta,1500);
+    jogadas ++;
+    document.body.style.pointerEvents = "auto";
   }
+}
+
+function removeClasseCarta () {
+  cartaAberta[0].parentElement.classList.remove('aberta', 'visualizar');
+  cartaAberta[1].parentElement.classList.remove('aberta', 'visualizar');
+  cartaAberta = [];
 }
 
 /* FUNÇÃO RESPONSÁVEL POR ATRIBUIR OS ÍCONES RANDOMIZADOS AS CARTAS */
