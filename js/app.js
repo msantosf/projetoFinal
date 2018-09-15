@@ -6,7 +6,8 @@ const cartaArr = document.querySelectorAll('.carta');
 const arrayClassIcon = [
   'fa-diamond' , 'fa-paper-plane-o' , 'fa-anchor' , 'fa-bolt' ,
   'fa-cube' , 'fa-leaf' , 'fa-diamond' , 'fa-paper-plane-o' ,
-  'fa-anchor' , 'fa-bolt' , 'fa-cube' , 'fa-leaf'
+  'fa-anchor' , 'fa-bolt' , 'fa-cube' , 'fa-leaf',
+  'fa-bicycle' , 'fa-bomb' , 'fa-bicycle' , 'fa-bomb'
 ];
 /* ARRAY PARA ARMAZENAR VALOR DA CARTA SELECIONADA*/
 let cartaAberta = [];
