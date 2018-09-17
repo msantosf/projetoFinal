@@ -67,6 +67,7 @@ body {
   font-size: 33px;
 }
 
+/* ESTILO REFERENTE AO PLACAR */
 .placar {
   text-align: left;
   width: 345px;
@@ -79,6 +80,10 @@ body {
   display: inline-block;
   margin: 0 5px 0 0;
   list-style: none;
+}
+
+.placar .jogadas {
+
 }
 
 .placar .reiniciar {

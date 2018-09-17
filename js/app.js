@@ -15,7 +15,11 @@ let cartaAberta = [];
 let pontuacao = 0;
 //VARIÁVEL QUE ARMAZENA A PONTUAÇÃO MÁXIMA DO JOGO
 let pontMax = cartaArr.length / 2;
+//VARIÁVEIS PARA ARMAZENAR QUANTIDADE DE JOGADAS
 let jogadas = 0;
+let movimentos = document.querySelector('.jogadas');
+//VARIÁVEL PARA MANIPULAÇÃO DAS ESTRELAS DO PLACAR
+let estrela = document.querySelector('.estrela');
 
 /* EMBARALHA AS CARTAS */
 function shuffle(array) {
@@ -48,6 +52,8 @@ tabuleiro.addEventListener('click', function (evento){
     if (cartaAberta.length < 2) {
       //CASO O TAMANHO DO ARRAY SEJA MENOR QUE 2, ADICIONA O ICONE DA CARTA AO ARRAY
       cartaAberta.push(evento.target.querySelector('i'));
+      //GARANTINDO QUE A MESMA CARTA NÃO SEJA CLICADA MAIS DE UMA VEZ
+      evento.target.style.pointerEvents = "none";
     }
 
     //TESTE PARA DESABILITAR A ABERTURA DE NOVAS CARTAS CASO JÁ EXISTAM 2 ABERTAS
@@ -76,7 +82,9 @@ function comparacao () {
 
     // SE CARTAS IGUAIS, INCREMENTA PONTUAÇÃO E JOGADAS
     pontuacao ++;
-    jogadas ++
+    jogadas ++;
+    movimentos.innerHTML ++;
+    movimentosEstrela();
     // TESTE SE PONTUAÇÃO CHEGAR AO MÁXIMO PERMITIDO, FINALIZA O JOGO
     if (pontuacao === pontMax){
       console.log('vencedor!!');
@@ -84,21 +92,40 @@ function comparacao () {
     console.log('Cartas Iguais');
   } else if (cartaAberta[0].className !== cartaAberta[1].className) {
     console.log('Cartas diferentes!');
-    setTimeout(removeClasseCarta,1500);
     jogadas ++;
-    document.body.style.pointerEvents = "auto";
+    movimentos.innerHTML ++;
+    movimentosEstrela();
+    setTimeout(removeClasseCarta,1500);
   }
 }
 
 function removeClasseCarta () {
   cartaAberta[0].parentElement.classList.remove('aberta', 'visualizar');
+  // PERMITINDO QUE A CARTA VOLTE A SER CLICADA
+  cartaAberta[0].parentElement.style.pointerEvents = "auto";
   cartaAberta[1].parentElement.classList.remove('aberta', 'visualizar');
+  // PERMITINDO QUE A CARTA VOLTE A SER CLICADA
+  cartaAberta[1].parentElement.style.pointerEvents = "auto";
+  //PERMITINDO NOVAMENTE O CLICK
+  document.body.style.pointerEvents = "auto";
+  //ESVAZIA ARRAY DE CARTAS PARA NOVA COMPARAÇÃO
   cartaAberta = [];
+}
+
+function movimentosEstrela () {
+    if (jogadas >= 10 && jogadas < 18) {
+      estrela.children[2].classList.remove('fa' , 'fa-star');
+    }
+
+    if (jogadas >= 18) {
+      estrela.children[1].classList.remove('fa' , 'fa-star' );
+    }
 }
 
 /* FUNÇÃO RESPONSÁVEL POR ATRIBUIR OS ÍCONES RANDOMIZADOS AS CARTAS */
 function iniciaTabuleiro () {
   shuffle(arrayClassIcon);
+  movimentos.innerHTML = 0;
   for (let cont = 0 ; cont <= cartaArr.length ; cont ++) {
     cartaArr[cont].querySelector('i').classList.add('fa', arrayClassIcon[cont]);
   }
