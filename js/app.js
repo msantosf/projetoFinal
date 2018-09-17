@@ -9,17 +9,19 @@ const arrayClassIcon = [
   'fa-anchor' , 'fa-bolt' , 'fa-cube' , 'fa-leaf',
   'fa-bicycle' , 'fa-bomb' , 'fa-bicycle' , 'fa-bomb'
 ];
-/* ARRAY PARA ARMAZENAR VALOR DA CARTA SELECIONADA*/
+/* ARRAY PARA ARMAZENAR VALOR DA CARTA SELECIONADA */
 let cartaAberta = [];
-//VARIÁVEL QUE ARMAZENA A PONTUÇÃO DO JOGO
+/* VARIÁVEL QUE ARMAZENA A PONTUÇÃO DO JOGO */
 let pontuacao = 0;
-//VARIÁVEL QUE ARMAZENA A PONTUAÇÃO MÁXIMA DO JOGO
+/* VARIÁVEL QUE ARMAZENA A PONTUAÇÃO MÁXIMA DO JOGO */
 let pontMax = cartaArr.length / 2;
-//VARIÁVEIS PARA ARMAZENAR QUANTIDADE DE JOGADAS
+/* VARIÁVEIS PARA ARMAZENAR QUANTIDADE DE JOGADAS */
 let jogadas = 0;
 let movimentos = document.querySelector('.jogadas');
-//VARIÁVEL PARA MANIPULAÇÃO DAS ESTRELAS DO PLACAR
+/* VARIÁVEL PARA MANIPULAÇÃO DAS ESTRELAS DO PLACAR */
 let estrela = document.querySelector('.estrela');
+/* VARIÁVEL PARA REINICIAR JOGO */
+const reinicia = document.querySelector('.reiniciar');
 
 /* EMBARALHA AS CARTAS */
 function shuffle(array) {
@@ -33,6 +35,10 @@ function shuffle(array) {
     array[randomIndex] = temporaryValue;
   }
   return array;
+}
+/* REINICIA O JOGO */
+reinicia.onclick = function () {
+  document.location.reload(true);
 }
 
 /* ADICIONANDO EVENTO DE CLICK NA CARTA */
@@ -113,11 +119,11 @@ function removeClasseCarta () {
 }
 
 function movimentosEstrela () {
-    if (jogadas >= 10 && jogadas < 18) {
+    if (jogadas >= 14 && jogadas < 20) {
       estrela.children[2].classList.remove('fa' , 'fa-star');
     }
 
-    if (jogadas >= 18) {
+    if (jogadas >= 20) {
       estrela.children[1].classList.remove('fa' , 'fa-star' );
     }
 }
@@ -126,6 +132,7 @@ function movimentosEstrela () {
 function iniciaTabuleiro () {
   shuffle(arrayClassIcon);
   movimentos.innerHTML = 0;
+  cartaAberta = [];
   for (let cont = 0 ; cont <= cartaArr.length ; cont ++) {
     cartaArr[cont].querySelector('i').classList.add('fa', arrayClassIcon[cont]);
   }
