@@ -98,6 +98,8 @@ function comparacao () {
     console.log('Cartas Iguais');
   } else if (cartaAberta[0].className !== cartaAberta[1].className) {
     console.log('Cartas diferentes!');
+    cartaAberta[0].parentElement.classList.add('unmatch');
+    cartaAberta[1].parentElement.classList.add('unmatch');
     jogadas ++;
     movimentos.innerHTML ++;
     movimentosEstrela();
@@ -106,10 +108,10 @@ function comparacao () {
 }
 
 function removeClasseCarta () {
-  cartaAberta[0].parentElement.classList.remove('aberta', 'visualizar');
+  cartaAberta[0].parentElement.classList.remove('aberta', 'visualizar', 'unmatch');
   // PERMITINDO QUE A CARTA VOLTE A SER CLICADA
   cartaAberta[0].parentElement.style.pointerEvents = "auto";
-  cartaAberta[1].parentElement.classList.remove('aberta', 'visualizar');
+  cartaAberta[1].parentElement.classList.remove('aberta', 'visualizar', 'unmatch');
   // PERMITINDO QUE A CARTA VOLTE A SER CLICADA
   cartaAberta[1].parentElement.style.pointerEvents = "auto";
   //PERMITINDO NOVAMENTE O CLICK
