@@ -22,6 +22,14 @@ let movimentos = document.querySelector('.jogadas');
 let estrela = document.querySelector('.estrela');
 /* VARIÁVEL PARA REINICIAR JOGO */
 const reinicia = document.querySelector('.reiniciar');
+// CRIANDO VARIÁVEIS NECESSÁRIAS AO MODAL
+const modal = document.getElementById('modalVitoria');
+const subtitulo = document.createElement('h3');
+const numVitoria = document.createElement('p');
+const numJogadas = document.createElement('p');
+const btnReiniciar = document.createElement('button');
+const contModal = document.querySelector('.modalContent');
+
 
 /* EMBARALHA AS CARTAS */
 function shuffle(array) {
@@ -36,6 +44,7 @@ function shuffle(array) {
   }
   return array;
 }
+
 /* REINICIA O JOGO */
 reinicia.onclick = function () {
   document.location.reload(true);
@@ -93,11 +102,9 @@ function comparacao () {
     movimentosEstrela();
     // TESTE SE PONTUAÇÃO CHEGAR AO MÁXIMO PERMITIDO, FINALIZA O JOGO
     if (pontuacao === pontMax){
-      console.log('vencedor!!');
+      chamaModal();
     }
-    console.log('Cartas Iguais');
   } else if (cartaAberta[0].className !== cartaAberta[1].className) {
-    console.log('Cartas diferentes!');
     cartaAberta[0].parentElement.classList.add('unmatch');
     cartaAberta[1].parentElement.classList.add('unmatch');
     jogadas ++;
@@ -128,6 +135,21 @@ function movimentosEstrela () {
     if (jogadas >= 20) {
       estrela.children[1].classList.remove('fa' , 'fa-star' );
     }
+}
+
+function chamaModal () {
+  modal.style.display = 'block';
+  subtitulo.textContent = 'Vencedor!!!';
+  contModal.appendChild(subtitulo);
+  numVitoria.textContent = 'Pontuação: ' + pontuacao;
+  contModal.appendChild(numVitoria);
+  numJogadas.textContent = 'Movimentos: ' + jogadas;
+  contModal.appendChild(numJogadas);
+  btnReiniciar.innerHTML = '<span>Reiniciar jogo? <i class="fa fa-repeat"></i></span>';
+  contModal.appendChild(btnReiniciar);
+  btnReiniciar.onclick = function () {
+    document.location.reload(true);
+  }
 }
 
 /* FUNÇÃO RESPONSÁVEL POR ATRIBUIR OS ÍCONES RANDOMIZADOS AS CARTAS */
