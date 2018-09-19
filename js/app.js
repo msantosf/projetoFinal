@@ -20,6 +20,7 @@ let jogadas = 0;
 let movimentos = document.querySelector('.jogadas');
 /* VARIÁVEL PARA MANIPULAÇÃO DAS ESTRELAS DO PLACAR */
 let estrela = document.querySelector('.estrela');
+let estrelaMax = 3;
 /* VARIÁVEL PARA REINICIAR JOGO */
 const reinicia = document.querySelector('.reiniciar');
 // CRIANDO VARIÁVEIS NECESSÁRIAS AO MODAL
@@ -28,6 +29,7 @@ const subtitulo = document.createElement('h3');
 const numVitoria = document.createElement('p');
 const numJogadas = document.createElement('p');
 const btnReiniciar = document.createElement('button');
+const estrelaModal = document.createElement('p');
 const contModal = document.querySelector('.modalContent');
 // CRIANDO VARIÁVEIS NECESSÁRIAS AO cronometro
 let tempoElem = document.getElementById('tempo');
@@ -89,7 +91,7 @@ tabuleiro.addEventListener('click', function (evento){
   }
 });
 
-/* FUNÇÃO EFETUA OS TESTES NECESSÁRIOS SE CARTAS SÃO IGUAIS OU NÃO*/
+/* FUNÇÃO EFETUA OS TESTES NECESSÁRIOS SE CARTAS SÃO IGUAIS OU NÃO */
 function comparacao () {
   //TESTA IGUALDADE DAS CARTAS
   if (cartaAberta[0].className === cartaAberta[1].className) {
@@ -139,19 +141,29 @@ function removeClasseCarta () {
 function movimentosEstrela () {
     if (jogadas >= 14 && jogadas < 20) {
       estrela.children[2].classList.remove('fa' , 'fa-star');
+      if (jogadas === 14) {
+          estrelaMax --;
+      }
     }
 
     if (jogadas >= 20) {
       estrela.children[1].classList.remove('fa' , 'fa-star' );
+      if (jogadas === 20) {
+          estrelaMax --;
+      }
     }
 }
 
+/* FUNÇÃO QUE CRIA O MODAL, CRIANDO OS ELEMENTOS NECESSÁRIOS PARA INFORMAÇÃO
+DE ESTATÍSTICAS */
 function chamaModal () {
   modal.style.display = 'block';
   subtitulo.textContent = 'Vencedor!!!';
   contModal.appendChild(subtitulo);
   numVitoria.textContent = 'Pontuação: ' + pontuacao;
   contModal.appendChild(numVitoria);
+  estrelaModal.innerHTML = estrelaMax + " estrelas";
+  contModal.appendChild(estrelaModal);
   numJogadas.textContent = 'Movimentos: ' + jogadas;
   contModal.appendChild(numJogadas);
   tempoElem.innerHTML = minutos + " minutos e " + segundos + " segundos!";
@@ -161,6 +173,12 @@ function chamaModal () {
   btnReiniciar.onclick = function () {
     document.location.reload(true);
   }
+  //FECHAR MODAL AO CLICAR FORA DO MESMO
+  window.onclick = function(event) {
+		if (event.target == modal) {
+			modal.style.display = "none";
+		}
+	};
 }
 
 function iniciaTempo () {

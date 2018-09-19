@@ -126,3 +126,15 @@ body {
   min-height: 680px;
   text-align: center;
 }
+
+/* MEDIA QUERIES */
+@media screen and (max-width: 660px){
+  .tabuleiro {
+    width: 330px;
+    min-height: 340px;
+  }
+  .tabuleiro .carta {
+    height: 62.5px;
+    width: 62.5px;
+  }
+}
