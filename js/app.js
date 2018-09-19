@@ -29,7 +29,11 @@ const numVitoria = document.createElement('p');
 const numJogadas = document.createElement('p');
 const btnReiniciar = document.createElement('button');
 const contModal = document.querySelector('.modalContent');
-
+// CRIANDO VARIÁVEIS NECESSÁRIAS AO cronometro
+let tempoElem = document.getElementById('tempo');
+let tempoInicio = false;
+let minutos = 0;
+let segundos = 0;
 
 /* EMBARALHA AS CARTAS */
 function shuffle(array) {
@@ -53,6 +57,10 @@ reinicia.onclick = function () {
 /* ADICIONANDO EVENTO DE CLICK NA CARTA */
 tabuleiro.addEventListener('click', function (evento){
   if (evento.target.nodeName === 'LI') {
+    if (tempoInicio === false) {
+      tempoInicio = true;
+      iniciaTempo();
+    }
     /* SE O CLICK FOR EM UMA CARTA,
     CHAMA A FUNÇÃO QUE ATRIBUI AS CLASSES CSS 'aberta'
     'visualizar' TORNANDO VISÍVEL ASSIM A CARTA*/
@@ -102,6 +110,7 @@ function comparacao () {
     movimentosEstrela();
     // TESTE SE PONTUAÇÃO CHEGAR AO MÁXIMO PERMITIDO, FINALIZA O JOGO
     if (pontuacao === pontMax){
+      paraTempo();
       chamaModal();
     }
   } else if (cartaAberta[0].className !== cartaAberta[1].className) {
@@ -145,11 +154,28 @@ function chamaModal () {
   contModal.appendChild(numVitoria);
   numJogadas.textContent = 'Movimentos: ' + jogadas;
   contModal.appendChild(numJogadas);
+  tempoElem.innerHTML = minutos + " minutos e " + segundos + " segundos!";
+  contModal.appendChild(tempoElem);
   btnReiniciar.innerHTML = '<span>Reiniciar jogo? <i class="fa fa-repeat"></i></span>';
   contModal.appendChild(btnReiniciar);
   btnReiniciar.onclick = function () {
     document.location.reload(true);
   }
+}
+
+function iniciaTempo () {
+  tempo = setInterval (function () {
+    segundos ++;
+    if (segundos === 60) {
+      minutos ++;
+      segundos = 0 ;
+    }
+    tempoElem.innerHTML = minutos + ":" + segundos ;
+  },1000);
+}
+
+function paraTempo () {
+  clearInterval(tempo);
 }
 
 /* FUNÇÃO RESPONSÁVEL POR ATRIBUIR OS ÍCONES RANDOMIZADOS AS CARTAS */
