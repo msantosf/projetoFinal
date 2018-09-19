@@ -98,6 +98,12 @@ body {
   cursor: pointer;
 }
 
+.placar .cronometro {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;;
+}
+
 /* ESTILO PARA O MODAL */
 .modal {
   display: none;
@@ -106,8 +112,8 @@ body {
   left: 0;
   top: 0;
   width: 100%;
-  background-color: rgb (0, 0, 0);
-  background-color: rgba (0, 0, 0, 0.4);
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modalContent {
