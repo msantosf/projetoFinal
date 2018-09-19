@@ -30,9 +30,11 @@ O placar se encontra na tag ```<section></section>``` onde são encontrados:
 
 As cartas feitas no jogo são feitas pela tag ```<li></li>``` :
 
-```<li class="carta">
+```
+<li class="carta">
   <i></i>
-</li>```
+</li>
+```
 
 As atribuições dos ícones das cartas e a randomização das mesmas é feita no arquivo 'app.css', nas funções ```iniciaTabuleiro()``` e ```shuffle(array)``` .
 
