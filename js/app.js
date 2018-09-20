@@ -128,10 +128,10 @@ function comparacao () {
 function removeClasseCarta () {
   cartaAberta[0].parentElement.classList.remove('aberta', 'visualizar', 'unmatch');
   // Permitindo que a carta volte a ser clicada
-  cartaAberta[0].parentElement.style.pointerEvents = "auto";
+  cartaAberta[0].parentElement.removeAttribute("style");
   cartaAberta[1].parentElement.classList.remove('aberta', 'visualizar', 'unmatch');
   // Permitindo que a carta volte a ser clicada
-  cartaAberta[1].parentElement.style.pointerEvents = "auto";
+  cartaAberta[1].parentElement.removeAttribute("style");
   // Permitindo novamente o click
   document.body.style.pointerEvents = "auto";
   // Esvazia array de cartas para nova comparação
