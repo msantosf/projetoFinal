@@ -1,29 +1,29 @@
-/* ARMAZENA O NÓ COM A CLASSE TABULEIRO QUE SERÁ ÚTIL PARA EVENTO DE CLICK */
+/* Armazena o nó com a classe tabuleiro que será útil para evento de click */
 const tabuleiro = document.querySelector('.tabuleiro');
-/*CRIA UM ARRAY DE NÓS CONTENDO CADA CARTA*/
+/* Cria um array de nós contendo cada carta */
 const cartaArr = document.querySelectorAll('.carta');
-/*ARRAY QUE ARMAZENA AS CLASSES QUE SERÃO OS ÍCONES DE CADA CARTA*/
+/* Array que armazema as classes que serão os os ícones de cada carta */
 const arrayClassIcon = [
   'fa-diamond' , 'fa-paper-plane-o' , 'fa-anchor' , 'fa-bolt' ,
-  'fa-cube' , 'fa-leaf' , 'fa-diamond' , 'fa-paper-plane-o' ,
-  'fa-anchor' , 'fa-bolt' , 'fa-cube' , 'fa-leaf',
-  'fa-bicycle' , 'fa-bomb' , 'fa-bicycle' , 'fa-bomb'
+  'fa-cube' , 'fa-leaf' , 'fa-bicycle' , 'fa-bomb'
 ];
-/* ARRAY PARA ARMAZENAR VALOR DA CARTA SELECIONADA */
+/* Array criado para concatenar o arrayClassIcon fazendo assim a criação dos 8 pares de cartas */
+const doisBaralhos = arrayClassIcon.concat(arrayClassIcon);
+/* Array para armazenar valor da carta selecionada */
 let cartaAberta = [];
-/* VARIÁVEL QUE ARMAZENA A PONTUÇÃO DO JOGO */
+/* Variável que armazema pontuação do jogo */
 let pontuacao = 0;
-/* VARIÁVEL QUE ARMAZENA A PONTUAÇÃO MÁXIMA DO JOGO */
+/* Variável que armazena a pontuação máxima do jogo */
 let pontMax = cartaArr.length / 2;
-/* VARIÁVEIS PARA ARMAZENAR QUANTIDADE DE JOGADAS */
+/* Variáveis para armazenar a quantidade de jogadas */
 let jogadas = 0;
 let movimentos = document.querySelector('.jogadas');
-/* VARIÁVEL PARA MANIPULAÇÃO DAS ESTRELAS DO PLACAR */
+/* Variável para a manipulação das estrelas do placas */
 let estrela = document.querySelector('.estrela');
 let estrelaMax = 3;
-/* VARIÁVEL PARA REINICIAR JOGO */
+/* Variável para reiniciar o jogo */
 const reinicia = document.querySelector('.reiniciar');
-// CRIANDO VARIÁVEIS NECESSÁRIAS AO MODAL
+/* Criando variáveis necessárias ao modal */
 const modal = document.getElementById('modalVitoria');
 const subtitulo = document.createElement('h3');
 const numVitoria = document.createElement('p');
@@ -31,13 +31,13 @@ const numJogadas = document.createElement('p');
 const btnReiniciar = document.createElement('button');
 const estrelaModal = document.createElement('p');
 const contModal = document.querySelector('.modalContent');
-// CRIANDO VARIÁVEIS NECESSÁRIAS AO cronometro
+/* Criando variáveis necessárias ao cronômetro */
 let tempoElem = document.getElementById('tempo');
 let tempoInicio = false;
 let minutos = 0;
 let segundos = 0;
 
-/* EMBARALHA AS CARTAS */
+/* Função que embaralha as cartas */
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -51,66 +51,66 @@ function shuffle(array) {
   return array;
 }
 
-/* REINICIA O JOGO */
+/* Reinicia o jogo */
 reinicia.onclick = function () {
   document.location.reload(true);
 }
 
-/* ADICIONANDO EVENTO DE CLICK NA CARTA */
+/* Adicionando evento de click na carta */
 tabuleiro.addEventListener('click', function (evento){
   if (evento.target.nodeName === 'LI') {
     if (tempoInicio === false) {
       tempoInicio = true;
       iniciaTempo();
     }
-    /* SE O CLICK FOR EM UMA CARTA,
-    CHAMA A FUNÇÃO QUE ATRIBUI AS CLASSES CSS 'aberta'
-    'visualizar' TORNANDO VISÍVEL ASSIM A CARTA*/
+    /* Se o click for em uma carta,
+    chama a função que atribui as classes CSS '.aberta' e
+    '.visualizar' tornando vísivil assim a carta */
     atribuiClassesCartas();
   }
 
   function atribuiClassesCartas () {
-    //ADICIONA A CARTA SELECIONADA AS CLASSES PARA MOSTRAR A CARTA
+    // Adiciona a carta selecionada as classes para mostrar a carta
     evento.target.classList.add('aberta', 'visualizar');
 
-    //TESTE PARA ADICIONAR APENAS 2 VALORES AO ARRAY PARA COMPARAÇÃO
+    // Teste para adicionar apenas 2 valores ao array para comparação
     if (cartaAberta.length < 2) {
-      //CASO O TAMANHO DO ARRAY SEJA MENOR QUE 2, ADICIONA O ICONE DA CARTA AO ARRAY
+      // Caso o tamanho do array seja menor que 2, adiciona o ícone da carta ao array
       cartaAberta.push(evento.target.querySelector('i'));
-      //GARANTINDO QUE A MESMA CARTA NÃO SEJA CLICADA MAIS DE UMA VEZ
+      // Garantindo que a mesma carta não seja clicada mais de uma vez
       evento.target.style.pointerEvents = "none";
     }
 
-    //TESTE PARA DESABILITAR A ABERTURA DE NOVAS CARTAS CASO JÁ EXISTAM 2 ABERTAS
+    // Teste para desabilitar a abertura de novas cartas caso já existam 2 abertas
     if (cartaAberta.length === 2) {
-      //DESABILTA CLICK QUE PODERIA ABRIR UMA NOVA CARTA ENQUANTO A COMPARAÇÃO É FEITA
+      // Desabilita click que poderia abrir uma nova carta enquantoa comparação é feita
       document.body.style.pointerEvents = "none";
-      // CHAMA FUNÇÃO QUE FARÁ A COMPARAÇÃO DAS DUAS CARTAS NO ARRAY
+      // Chama função que fará a comparação das duas cartas no array
       comparacao();
     }
   }
 });
 
-/* FUNÇÃO EFETUA OS TESTES NECESSÁRIOS SE CARTAS SÃO IGUAIS OU NÃO */
+/* Função efetua os testes necessários se cartas são iguais ou não */
 function comparacao () {
-  //TESTA IGUALDADE DAS CARTAS
+  // Testa igualdade das cartas
   if (cartaAberta[0].className === cartaAberta[1].className) {
-    // CARTAS IGUAIS, LOGO É ATRIBUÍDA A CLASSE CSS MATH QUE VALIDA VISUALMENTE O ACERTO
+    // Cartas iguais, logo é atribuída a classe CSS '.match' que valida visualmente o acerto
     cartaAberta[0].parentElement.classList.add('match');
     cartaAberta[1].parentElement.classList.add('match');
 
-    //CARTAS IGUAIS, O ARRAY É REINICIADO PARA RECEBER NOVAS CARTAS
+    // Cartas iguais, o array é reiniciado para receber novas cartas
     cartaAberta = [];
 
-    //HABILITA O MOUSE NOVAMENTE PARA CONTINUAR O JOGO
+    // Habilita o mouse novamente para continuar o jogo
     document.body.style.pointerEvents = "auto";
 
-    // SE CARTAS IGUAIS, INCREMENTA PONTUAÇÃO E JOGADAS
+    // Se cartas iguais, incrementa pontuação e jogadas
     pontuacao ++;
     jogadas ++;
     movimentos.innerHTML ++;
     movimentosEstrela();
-    // TESTE SE PONTUAÇÃO CHEGAR AO MÁXIMO PERMITIDO, FINALIZA O JOGO
+    // Teste se pontuação chegar ao máximo permitido, finaliza o jogo
     if (pontuacao === pontMax){
       paraTempo();
       chamaModal();
@@ -127,14 +127,14 @@ function comparacao () {
 
 function removeClasseCarta () {
   cartaAberta[0].parentElement.classList.remove('aberta', 'visualizar', 'unmatch');
-  // PERMITINDO QUE A CARTA VOLTE A SER CLICADA
+  // Permitindo que a carta volte a ser clicada
   cartaAberta[0].parentElement.style.pointerEvents = "auto";
   cartaAberta[1].parentElement.classList.remove('aberta', 'visualizar', 'unmatch');
-  // PERMITINDO QUE A CARTA VOLTE A SER CLICADA
+  // Permitindo que a carta volte a ser clicada
   cartaAberta[1].parentElement.style.pointerEvents = "auto";
-  //PERMITINDO NOVAMENTE O CLICK
+  // Permitindo novamente o click
   document.body.style.pointerEvents = "auto";
-  //ESVAZIA ARRAY DE CARTAS PARA NOVA COMPARAÇÃO
+  // Esvazia array de cartas para nova comparação
   cartaAberta = [];
 }
 
@@ -154,8 +154,8 @@ function movimentosEstrela () {
     }
 }
 
-/* FUNÇÃO QUE CRIA O MODAL, CRIANDO OS ELEMENTOS NECESSÁRIOS PARA INFORMAÇÃO
-DE ESTATÍSTICAS */
+/* Função que cria o modal, criando os elementos necessários para informação
+de estatísticas */
 function chamaModal () {
   modal.style.display = 'block';
   subtitulo.textContent = 'Vencedor!!!';
@@ -173,7 +173,7 @@ function chamaModal () {
   btnReiniciar.onclick = function () {
     document.location.reload(true);
   }
-  //FECHAR MODAL AO CLICAR FORA DO MESMO
+  // Fechar modal ao clicar fora do mesmo
   window.onclick = function(event) {
 		if (event.target == modal) {
 			modal.style.display = "none";
@@ -196,13 +196,13 @@ function paraTempo () {
   clearInterval(tempo);
 }
 
-/* FUNÇÃO RESPONSÁVEL POR ATRIBUIR OS ÍCONES RANDOMIZADOS AS CARTAS */
+/* Função responsável por atribuir os ícones randomizados as cartas */
 function iniciaTabuleiro () {
-  shuffle(arrayClassIcon);
+  shuffle(doisBaralhos);
   movimentos.innerHTML = 0;
   cartaAberta = [];
   for (let cont = 0 ; cont <= cartaArr.length ; cont ++) {
-    cartaArr[cont].querySelector('i').classList.add('fa', arrayClassIcon[cont]);
+    cartaArr[cont].querySelector('i').classList.add('fa', doisBaralhos[cont]);
   }
 }
 iniciaTabuleiro();
